@@ -1,13 +1,58 @@
+/******************************************************************************
+ *                                                                            *
+ *                         ZEN BROWSER CUSTOM STYLES                          *
+ *                                                                            *
+ ******************************************************************************/
+
+/* 
+ * ============================================================================
+ *   IMPORTS
+ * ============================================================================
+ *   Importing base stylesheets and fonts.
+ */
+
 /* @import "natsumi/natsumi.css";
 @import "natsumi-pages/natsumi-pages.css"; */
 
 @import "Nebula/Nebula.css";
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&display=swap');
 
+/* 
+ * ============================================================================
+ *   THEME VARIABLES (LIGHT & DARK MODE)
+ * ============================================================================
+ *   These variables automatically change based on the system's color scheme
+ *   to ensure UI elements are always visible and look good.
+ */
+
+:root {
+  /* Default values (primarily for light mode) */
+  --translucent-gradient-start: rgba(0, 0, 0, 0.1);    
+  --translucent-gradient-mid:   rgba(0, 0, 0, 0.025);
+  --essential-bubble-indicator: black;      /* Dark dot for light mode */
+  --pending-tab-shadow-color:   transparent;      
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Values for dark mode */
+    --translucent-gradient-start: rgba(0, 0, 0, 0.1);    
+    --translucent-gradient-mid:   rgba(0, 0, 0, 0.025);
+    --essential-bubble-indicator: white;  /* Light dot for dark mode */
+    --pending-tab-shadow-color:   rgba(0, 0, 0, 0.7);  /* Light shadow for dark mode */
+  }
+}
 
 
-/* === BrowserStack Background === */
-/* Applies a translucent background color that adapts to light/dark mode */
+/* 
+ * ============================================================================
+ *   GENERAL UI STYLES
+ * ============================================================================
+ */
+
+/* --- BrowserStack Background --- */
+/* Applies a subtle, translucent gradient overlay that adapts to the theme. */
+/* Original light-dark() implementation: */
 /* .browserStack {
   background-color: light-dark(
     rgba(255, 255, 255, 0.1),
@@ -18,81 +63,126 @@
 .browserStack {
   background-image: linear-gradient(
     to right,
-    rgba(0, 0, 0, 0.1) 0%,
-    rgba(0, 0, 0, 0.025) 2%,
+    var(--translucent-gradient-start) 0%,
+    var(--translucent-gradient-mid) 2%,
     transparent 4%,
     transparent 100%
   ) !important;
   background-color: transparent !important;
 }
 
-
-
-/* === Zen Workspace Icon Size === */
-/* Sets the font size for workspace icons */
+/* --- Zen Workspace Icon Size --- */
+/* Sets a uniform font size for workspace icons in the sidebar. */
 .zen-workspace-icon {
   font-size: 15px;
 }
 
-/* === Zen Essential Tabs Styling === */
-/* Make essential tabs transparent when not hovered or selected */
-.tabbrowser-tab[zen-essential="true"]:not(:hover):not([selected="true"])
-.tab-stack .tab-background {
+
+/* 
+ * ============================================================================
+ *   TAB BAR & TAB STYLING
+ * ============================================================================
+ */
+
+/* --- Zen Essential Tabs --- */
+/* Makes the background of essential tabs transparent unless hovered or selected. */
+.tabbrowser-tab[zen-essential="true"]:not(:hover):not([selected="true"]) .tab-stack .tab-background {
   background-color: transparent !important;
 }
 
-/* === Tab Icons Sizing and Scaling === */
-/* Uniform sizing and scaling for various tab icon states */
+/* --- Tab Icons Sizing and Scaling --- */
+/* Provides uniform sizing and scaling for various tab icon states for consistency. */
 .tab-icon-pending,
 .tab-icon-image,
 .tab-sharing-icon-overlay,
 .tab-icon-overlay {
+  /* Original size constraints (commented out by user) */
   /* height: 20px !important;
   width: 20px !important; */
   transform: scale(1.3) !important;
 }
 
-
-/* Increase size for selected or multi-selected tab icons */
-.tab-icon-image:is([selected=""],
-.tabbrowser-tab[multiselected="true"] .tab-icon-image) {
+/* Increases the size of the icon for the currently selected or multi-selected tab. */
+.tab-icon-image:is([selected=""], .tabbrowser-tab[multiselected="true"] .tab-icon-image) {
   transform: scale(1.7) !important;
- 
 }
 
-/* Scale selected essential tab icons larger */
+/* Scales selected essential tab icons larger (commented out by user). */
 .tabbrowser-tab[zen-essential="true"][selected="true"] .tab-icon-image {
   /* transform: scale(1.5) !important; */
- 
+}
+
+/* --- Pending Tabs Visual Cue --- */
+/* Dims tabs that are loading (pending) and adds a moon icon for a visual cue. */
+.tabbrowser-tab[pending="true"] .tab-label::before {
+  content: "🌙 ";
+}
+.tabbrowser-tab[pending="true"] {
+  filter: brightness(0.7);
+  /* Uses a theme-aware variable for the text shadow color. */
+  text-shadow: 0 0 5px var(--pending-tab-shadow-color);
+  /* font-weight: bold; */
+}
+
+/* --- Essential Tab Bubble Indicator --- */
+/* Adds a small dot indicator to essential tabs that are not currently loading. */
+tab[zen-essential="true"] {
+  position: relative;
+}
+
+/* The indicator dot, hidden by default. */
+tab[zen-essential="true"]:not([selected="true"])::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  width: 3px;
+  height: 3px;
+  /* Uses a theme-aware variable for the background color. */
+  background-color: var(--essential-bubble-indicator);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+/* Shows the indicator dot when the tab is not pending. */
+tab[zen-essential="true"]:not([pending="true"])::after {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+  z-index: 9999999999 !important;
+}
+
+/* --- Tab Audio Icon --- */
+/* Increases the size of the tab's sound indicator icon. */
+.tab-audio-button {
+  scale: 1.4;
 }
 
 
+/* 
+ * ============================================================================
+ *   ZEN ESSENTIALS CONTAINER
+ * ============================================================================
+ */
 
-/* === Zen Essentials Adjustment === */
-
-
-/* tab size */
+/* --- Grid Layout --- */
+/* Defines the column layout for the essentials container. */
 .zen-essentials-container {
-	grid-template-columns: repeat(auto-fit, minmax(40px, auto)) !important;
+  grid-template-columns: repeat(auto-fit, minmax(40px, auto)) !important;
 }
 
-
-
-/* Adjust size and spacing for specific icons within the Zen essentials container */
-.zen-essentials-container
-> tab
-> stack:nth-child(1)
-> hbox:nth-child(2)
-> stack:nth-child(2)
-> img:nth-child(3) {
+/* --- Specific Icon Adjustment --- */
+/* Adjusts the size and spacing for a specific icon within the essentials container. */
+.zen-essentials-container > tab > stack:nth-child(1) > hbox:nth-child(2) > stack:nth-child(2) > img:nth-child(3) {
   transform: scale(1.8) !important;
   margin: 0 !important;
   padding: 0 !important;
-  
 }
 
-
-/* reload icon */
+/* --- Reload Icon (Commented out by user) --- */
 /* .zen-essentials-container
 	> tab
 	> stack:nth-child(1)
@@ -103,74 +193,33 @@
 	width: 32px !important;
 } */
 
-/* === Pending Tabs Visual Cue === */
-/* Dim tabs that are loading (pending), except those marked as essential 
-:not([zen-essential="true"])
-*/
-.tabbrowser-tab[pending="true"] .tab-label::before {
-  content: "🌙 ";
-}
-.tabbrowser-tab[pending="true"] {
-  filter: brightness(0.7);
-  text-shadow: 0 0 5px black;
-  /* font-weight: bold; */
- 
-}
 
+/* 
+ * ============================================================================
+ *   EMPTY TAB PAGE (NEW TAB) STYLING
+ * ============================================================================
+ */
 
-
-
-/* === Essential Tab Bubble Indicator === */
-/* Adds a small bubble indicator at the bottom center of essential tabs */
-/* Bubble is hidden by default and appears when the tab is not pending */
-tab[zen-essential="true"] {
-  position: relative;
-}
-
-tab[zen-essential="true"]:not([selected="true"])::after{
-  content: "";
-  position: absolute;
-  bottom: 4px;
-  left: 50%;
-  transform: translateX(-50%) scale(0);
-  width: 3px;
-  height: 3px;
-  background-color: #ffffffc0;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 10;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  opacity: 0;
-}
-
-tab[zen-essential="true"]:not([pending="true"])::after {
-  transform: translateX(-50%) scale(1);
-  opacity: 1;
-  z-index: 9999999999 !important;
-}
-
-/* === Make Non-Essential Tab's Sound Icon Bigger === */
-
-.tab-audio-button {
- scale: 1.4;
-}
-
-/* https://snipboard.io/DbMSp2.jpg */
-/* https://github.com/zen-browser/branding/blob/main/Official/Word%20Marks/PNG/zen_logo_full_wordmark_color.png?raw=true" */
-
+/*
+ * When an empty Zen tab is selected, this rule applies a custom background image
+ * on top of the theme-aware gradient.
+ * Image source links:
+ * - https://snipboard.io/DbMSp2.jpg
+ * - https://github.com/zen-browser/branding/blob/main/Official/Word%20Marks/PNG/zen_logo_full_wordmark_color.png?raw=true
+ */
 #browser:has([zen-empty-tab="true"][selected="true"]) .browserStack {
   background-position: center, 0% 0% !important;
   background-size: 40%, 100% !important;
   background-repeat: no-repeat, repeat !important;
   opacity: 1 !important;
+  /* Combines the image with the theme-aware gradient. */
   background-image: url("https://snipboard.io/z6lUFX.jpg"),
     linear-gradient(
       to right,
-      rgba(0, 0, 0, 0.1) 0%,
-      rgba(0, 0, 0, 0.025) 2%,
+      var(--translucent-gradient-start) 0%,
+      var(--translucent-gradient-mid) 2%,
       transparent 4%,
       transparent 100%
     ) !important;
   background-color: transparent !important;
 }
-
