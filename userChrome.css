@@ -56,7 +56,7 @@
 /* Increase size for selected or multi-selected tab icons */
 .tab-icon-image:is([selected=""],
 .tabbrowser-tab[multiselected="true"] .tab-icon-image) {
-  transform: scale(1.5) !important;
+  transform: scale(1.7) !important;
  
 }
 
@@ -73,7 +73,7 @@
 
 /* tab size */
 .zen-essentials-container {
-	grid-template-columns: repeat(auto-fit, minmax(40px, auto)) !important;
+	grid-template-columns: repeat(auto-fit, minmax(45px, auto)) !important;
 }
 
 
