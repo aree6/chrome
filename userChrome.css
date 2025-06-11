@@ -2,7 +2,7 @@
 @import "natsumi-pages/natsumi-pages.css"; */
 
 @import "Nebula/Nebula.css";
-
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&display=swap');
 
 
 
@@ -105,11 +105,18 @@
 } */
 
 /* === Pending Tabs Visual Cue === */
-/* Dim tabs that are loading (pending), except those marked as essential */
-.tabbrowser-tab[pending="true"]:not([zen-essential="true"]) {
-  filter: brightness(0.7);
-  
+/* Dim tabs that are loading (pending), except those marked as essential 
+:not([zen-essential="true"])
+*/
+.tabbrowser-tab[pending="true"] {
+  filter: brightness(0.6);
+  text-shadow: 0 0 5px black;
+
 }
+
+
+
+
 /* === Essential Tab Bubble Indicator === */
 /* Adds a small bubble indicator at the bottom center of essential tabs */
 /* Bubble is hidden by default and appears when the tab is not pending */
@@ -145,5 +152,23 @@ tab[zen-essential="true"]:not([pending="true"])::after {
  scale: 1.4;
 }
 
-/* Remove the white background in Ctrl+Tab previews */
+/* https://snipboard.io/DbMSp2.jpg */
+/* https://github.com/zen-browser/branding/blob/main/Official/Word%20Marks/PNG/zen_logo_full_wordmark_color.png?raw=true" */
+
+#browser:has([zen-empty-tab="true"][selected="true"]) .browserStack {
+  background-position: center, 0% 0% !important;
+  background-size: 40%, 100% !important;
+  background-repeat: no-repeat, repeat !important;
+  opacity: 1 !important;
+  background-image: url("https://snipboard.io/z6lUFX.jpg"),
+    linear-gradient(
+      to right,
+      light-dark(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1)) 0%,
+      light-dark(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.025)) 2%,
+      transparent 4%,
+      transparent 100%
+    ) !important;
+  
+  background-color: transparent !important;
+}
 
