@@ -73,7 +73,7 @@
 
 /* tab size */
 .zen-essentials-container {
-	grid-template-columns: repeat(auto-fit, minmax(45px, auto)) !important;
+	grid-template-columns: repeat(auto-fit, minmax(40px, auto)) !important;
 }
 
 
@@ -112,7 +112,9 @@
 }
 .tabbrowser-tab[pending="true"] {
   filter: brightness(0.7);
-  /* text-shadow: 0 0 5px black; */
+  text-shadow: 0 0 5px black;
+  /* font-weight: bold; */
+ 
 }
 
 
