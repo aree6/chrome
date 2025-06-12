@@ -15,7 +15,7 @@
 @import "natsumi-pages/natsumi-pages.css"; */
 
 @import "Nebula/Nebula.css";
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&display=swap'); */
 
 /* 
  * ============================================================================
@@ -213,7 +213,9 @@ tab[zen-essential="true"]:not([pending="true"])::after {
   background-repeat: no-repeat, repeat !important;
   opacity: 1 !important;
   /* Combines the image with the theme-aware gradient. */
-  background-image: url("https://snipboard.io/z6lUFX.jpg"),
+  /* background-image: url("https://snipboard.io/z6lUFX.jpg"), */
+  background-image: url("NoTab.png"),
+
     linear-gradient(
       to right,
       var(--translucent-gradient-start) 0%,
