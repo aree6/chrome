@@ -30,7 +30,8 @@
   --translucent-gradient-start: rgba(0, 0, 0, 0.1);    
   --translucent-gradient-mid:   rgba(0, 0, 0, 0.025);
   --essential-bubble-indicator: black;      /* Dark dot for light mode */
-  --pending-tab-shadow-color:   transparent;      
+  --pending-tab-shadow-color:   transparent;
+  --zen-logo: url("LightModeZenLogo.png");      
 }
 
 @media (prefers-color-scheme: dark) {
@@ -40,6 +41,7 @@
     --translucent-gradient-mid:   rgba(0, 0, 0, 0.025);
     --essential-bubble-indicator: white;  /* Light dot for dark mode */
     --pending-tab-shadow-color:   rgba(0, 0, 0, 0.7);  /* Light shadow for dark mode */
+    --zen-logo: url("DarkModeZenLogo.png");      
   }
 }
 
@@ -214,7 +216,7 @@ tab[zen-essential="true"]:not([pending="true"])::after {
   opacity: 1 !important;
   /* Combines the image with the theme-aware gradient. */
   /* background-image: url("https://snipboard.io/z6lUFX.jpg"), */
-  background-image: url("NoTab.png"),
+  background-image: var(--zen-logo),
 
     linear-gradient(
       to right,
