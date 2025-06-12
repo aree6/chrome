@@ -227,3 +227,10 @@ tab[zen-essential="true"]:not([pending="true"])::after {
     ) !important;
   background-color: transparent !important;
 }
+
+
+.tab-background {
+  &:is([selected], [multiselected]) {
+    outline-color: #222222 !important;
+  }
+}
