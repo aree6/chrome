@@ -120,7 +120,7 @@
 .tabbrowser-tab[pending="true"] {
   filter: brightness(0.7);
   /* Uses a theme-aware variable for the text shadow color. */
-  text-shadow: 0 0 5px var(--pending-tab-shadow-color);
+  text-shadow: 0 1px 1px var(--pending-tab-shadow-color);
   /* font-weight: bold; */
 }
 
@@ -158,7 +158,7 @@ tab[zen-essential="true"]:not([pending="true"])::after {
 /* --- Tab Audio Icon --- */
 /* Increases the size of the tab's sound indicator icon. */
 .tab-audio-button {
-  scale: 1.4;
+  scale: 1.3;
 }
 
 
