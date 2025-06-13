@@ -31,7 +31,8 @@
   --translucent-gradient-mid:   rgba(0, 0, 0, 0.025);
   --essential-bubble-indicator: black;      /* Dark dot for light mode */
   --pending-tab-shadow-color:   transparent;
-  --zen-logo: url("LightModeZenLogo.png");      
+  --zen-logo: url("LightModeZenLogo.png");
+  --outline-color: transparent;         
 }
 
 @media (prefers-color-scheme: dark) {
@@ -41,7 +42,8 @@
     --translucent-gradient-mid:   rgba(0, 0, 0, 0.025);
     --essential-bubble-indicator: white;  /* Light dot for dark mode */
     --pending-tab-shadow-color:   rgba(0, 0, 0, 0.7);  /* Light shadow for dark mode */
-    --zen-logo: url("DarkModeZenLogo.png");      
+    --zen-logo: url("DarkModeZenLogo.png");
+    --outline-color: #222222;      
   }
 }
 
@@ -120,9 +122,9 @@
   content: "🌙 ";
 }
 .tabbrowser-tab[pending="true"] {
-  filter: brightness(0.7);
+  filter: brightness(0.5);
   /* Uses a theme-aware variable for the text shadow color. */
-  text-shadow: 0 1px 1px var(--pending-tab-shadow-color);
+  text-shadow: 0 0px 0.5px var(--pending-tab-shadow-color);
   /* font-weight: bold; */
 }
 
@@ -231,6 +233,6 @@ tab[zen-essential="true"]:not([pending="true"])::after {
 
 .tab-background {
   &:is([selected], [multiselected]) {
-    outline-color: #222222 !important;
+    outline-color: var(--outline-color) !important;
   }
 }
