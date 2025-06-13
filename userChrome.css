@@ -236,3 +236,8 @@ tab[zen-essential="true"]:not([pending="true"])::after {
     outline-color: var(--outline-color) !important;
   }
 }
+
+.tabbrowser-tab[pinned]:not([zen-essential="true"]) .tab-stack .tab-background {
+  background-color: transparent !important;
+}
+
