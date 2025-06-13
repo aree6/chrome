@@ -122,7 +122,7 @@
   content: "🌙 ";
 }
 .tabbrowser-tab[pending="true"] {
-  filter: brightness(0.5);
+  filter: brightness(0.6);
   /* Uses a theme-aware variable for the text shadow color. */
   text-shadow: 0 0px 0.5px var(--pending-tab-shadow-color);
   /* font-weight: bold; */
